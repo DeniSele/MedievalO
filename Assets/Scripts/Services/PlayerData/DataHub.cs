@@ -2,7 +2,15 @@
 
 public class DataHub
 {
+    #region Fields
+
     private static DataHub instance = null;
+
+    #endregion
+
+
+
+    #region Properties
 
     public static DataHub Instance {
         get
@@ -15,6 +23,11 @@ public class DataHub
         }
     }
 
+    #endregion
+
+
+
+    #region Public methods
 
     public bool HasKey(string key)
     {
@@ -56,4 +69,6 @@ public class DataHub
     {
         PlayerPrefs.SetString(valueName, value);
     }
+
+    #endregion
 }

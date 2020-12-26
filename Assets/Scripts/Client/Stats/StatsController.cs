@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StatsController : MonoBehaviour
 {
+    #region Nested types
+
     public class Stats
     {
         private string name;
@@ -28,11 +30,23 @@ public class StatsController : MonoBehaviour
         }
     }
 
+    #endregion
+
+
+
+    #region Fields
+
     private readonly string getUsersStatsUrlBase = "https://users-service-medieval.herokuapp.com/v1/users?_order_by=wins+desc,kills+desc";
 
     private List<Stats> usersStats = new List<Stats>();
 
     private StatsHandler statsHandler;
+
+    #endregion
+
+
+
+    #region Class lifecycle
 
     private void Awake()
     {
@@ -44,6 +58,11 @@ public class StatsController : MonoBehaviour
         StartCoroutine(API.GET(getUsersStatsUrlBase, OnRequestSuccess, OnRequestFailed));
     }
 
+    #endregion
+
+
+
+    #region Private methods
 
     private void UpdateStatsList(JSONObject data)
     {
@@ -73,6 +92,11 @@ public class StatsController : MonoBehaviour
         statsHandler.FillTable(usersStats);
     }
 
+    #endregion
+
+
+
+    #region Event handlers
 
     private void OnRequestFailed()
     {
@@ -84,4 +108,6 @@ public class StatsController : MonoBehaviour
     {
         UpdateStatsList(data);
     }
+
+    #endregion
 }

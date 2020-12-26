@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class NewsController : MonoBehaviour
 {
+    #region Fields
+
     private readonly string getNewsUrlBase = "https://users-service-medieval.herokuapp.com/v1/news";
 
     private NewsHandler newsHandler;
+
+    #endregion
+
+
+
+    #region Class lifecycle
 
     private void Awake()
     {
@@ -19,6 +27,11 @@ public class NewsController : MonoBehaviour
         StartCoroutine(API.GET(getNewsUrlBase, OnRequestSuccess, OnRequestFailed));
     }
 
+    #endregion
+
+
+
+    #region Event handlers
 
     private void OnRequestFailed()
     {
@@ -39,4 +52,6 @@ public class NewsController : MonoBehaviour
             newsHandler.SetNewsInfo(title, description);
         }
     }
+
+    #endregion
 }

@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class ContentDatabase
 {
+    #region Nested types
+
     public class Item
     {
         public enum ItemType
@@ -62,9 +64,20 @@ public class ContentDatabase
         }
     }
 
-    private static ContentDatabase instance = null;
+    #endregion
 
+
+
+    #region Fields
+
+    private static ContentDatabase instance = null;
     private List<Item> contentItems = new List<Item>();
+
+    #endregion
+
+
+
+    #region Properties
 
     public List<Item> ContentItems => contentItems;
 
@@ -80,6 +93,11 @@ public class ContentDatabase
         }
     }
 
+    #endregion
+
+
+
+    #region Public methods
 
     public void SetItemAsEquipped(string id, bool setState = false)
     {
@@ -125,4 +143,6 @@ public class ContentDatabase
             contentItems.Add(newItem);
         }
     }
+
+    #endregion
 }

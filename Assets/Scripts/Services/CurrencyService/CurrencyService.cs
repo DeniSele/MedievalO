@@ -6,15 +6,23 @@ using UnityEngine;
 
 public class CurrencyService
 {
+
+    #region Fields
+
     // Get to get; Post to set;
     private readonly string currencyUrlCurrency = "https://users-service-medieval.herokuapp.com/v1/users/{0}/currencies";
-    //private readonly string currencyUrlGerUserInfo = "https://users-service-medieval.herokuapp.com/v1/users/{0}";
     private static CurrencyService instance = null;
 
     private int coins;
     private int gems;
 
-    public static event Action<int, int> OnCurrencyUpdated; 
+    public static event Action<int, int> OnCurrencyUpdated;
+
+    #endregion
+
+
+
+    #region Properties
 
     public int GetCoint => coins;
     public int GetGems => gems;
@@ -31,6 +39,11 @@ public class CurrencyService
         }
     }
 
+    #endregion
+
+
+
+    #region Public methods
 
     public void AddCurrency(int coins = 0, int gems = 0)
     {
@@ -50,6 +63,11 @@ public class CurrencyService
         GameManager.courutineHandler.StartGetCourutine(String.Format(currencyUrlCurrency, userId), OnSuccess);
     }
 
+    #endregion
+
+
+
+    #region Event handlers
 
     private void OnSuccess(JSONObject data)
     {
@@ -57,4 +75,6 @@ public class CurrencyService
         gems = data.keys.Contains("gems") ? Int32.Parse(data["gems"].ToString()) : 0;
         OnCurrencyUpdated?.Invoke(coins, gems);
     }
+
+    #endregion
 }

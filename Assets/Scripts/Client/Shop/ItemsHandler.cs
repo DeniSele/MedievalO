@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class ItemsHandler : MonoBehaviour
 {
+    #region Fields
+
     [SerializeField] private Transform itemsRoot;
     [SerializeField] private Item itemPrefab;
 
@@ -27,23 +29,33 @@ public class ItemsHandler : MonoBehaviour
     [SerializeField] private Button equipButton;
     [SerializeField] private Button unequipButton;
 
-
     private ContentDatabase.Item.ItemType currentType;
     private ContentDatabase.Item currentItem;
 
     public ContentDatabase.Item GetCurrentItem => currentItem;
-    
 
+    #endregion
+
+
+
+    #region Class lifecycle
 
     private void OnDisable()
     {
         ClearAllItems();
     }
 
+    #endregion
+
+
+
+    #region Public methods
+
     public void Initialize()
     {
         FillByType(ContentDatabase.Item.ItemType.Weapon, true);
     }
+
 
     public void FillByType(int type)
     {
@@ -56,6 +68,7 @@ public class ItemsHandler : MonoBehaviour
         FillByType(currentType);
         SelectItem(currentItem);
     }
+
 
     public void SetItemAsOpen(string id = null)
     {
@@ -101,6 +114,13 @@ public class ItemsHandler : MonoBehaviour
         unequipButton.gameObject.SetActive(item.isOpen && item.isEquipped);
     }
 
+
+    #endregion
+
+
+
+    #region Private methods
+
     private void FillByType(ContentDatabase.Item.ItemType itemType, bool selectFirst = false)
     {
         List<ContentDatabase.Item> typeItems = ContentDatabase.Instance.ContentItems.Where(item => item.type == itemType).ToList();
@@ -124,6 +144,7 @@ public class ItemsHandler : MonoBehaviour
         }
     }
 
+
     private void ClearAllItems()
     {
         foreach(var child in itemsRoot.GetComponentsInChildren<Item>())
@@ -131,4 +152,6 @@ public class ItemsHandler : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
+
+    #endregion
 }

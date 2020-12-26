@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class AdminPanel : MonoBehaviour
 {
+    #region Fields
+
     [Header("Main")]
     [SerializeField] private Button button;
     [SerializeField] private GameObject panel;
@@ -15,6 +17,11 @@ public class AdminPanel : MonoBehaviour
     [SerializeField] private Text textCoins;
     [SerializeField] private Text textGems;
 
+    #endregion
+
+
+
+    #region Private methods
 
     private void OnEnable()
     {
@@ -22,6 +29,7 @@ public class AdminPanel : MonoBehaviour
         button.onClick.AddListener(SetPanelActivity);
         buttonCurrency.onClick.AddListener(AddCurrency);
     }
+
 
     private void OnDisable()
     {
@@ -43,4 +51,6 @@ public class AdminPanel : MonoBehaviour
     {
         panel.SetActive(!panel.activeSelf);
     }
+
+    #endregion
 }

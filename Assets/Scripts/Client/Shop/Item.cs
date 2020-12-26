@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
+    #region Fields
+
     [SerializeField] private Image icon;
     [SerializeField] private TMP_Text nameLabel;
     [SerializeField] private Image saleIcon;
@@ -15,15 +17,28 @@ public class Item : MonoBehaviour
     private ContentDatabase.Item currentItem;
     private ItemsHandler itemsHandler;
 
+    #endregion
+
+
+
+    #region Class lifecycle
+
     private void OnEnable()
     {
         button.onClick.AddListener(OnClick);
     }
 
+
     private void OnDisable()
     {
         button.onClick.RemoveListener(OnClick);
     }
+
+    #endregion
+
+
+
+    #region Public methods
 
     public void Initialize(ContentDatabase.Item item, ItemsHandler itemsHandler)
     {
@@ -37,8 +52,16 @@ public class Item : MonoBehaviour
         saleIcon.gameObject.SetActive(item.isOnSale);
     }
 
+    #endregion
+
+
+
+    #region Event handlers
+
     private void OnClick()
     {
         itemsHandler.SelectItem(currentItem);
     }
+
+    #endregion
 }

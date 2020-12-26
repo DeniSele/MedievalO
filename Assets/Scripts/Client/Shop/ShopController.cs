@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class ShopController : MonoBehaviour
 {
+    #region Fields
+
     private readonly string shopUrlBase = "https://users-service-medieval.herokuapp.com/v1/store_items";
     private readonly string shopUrlBuy = "https://users-service-medieval.herokuapp.com/v1/store_items/buy";
     private readonly string shopUrlUserItems = "https://users-service-medieval.herokuapp.com/v1/store_items/user/";
@@ -14,10 +16,17 @@ public class ShopController : MonoBehaviour
 
     private ItemsHandler itemsHandler;
 
+    #endregion
+
+
+
+    #region Class lifecycle
+
     private void Awake()
     {
         itemsHandler = GetComponent<ItemsHandler>();
     }
+
 
     private void OnEnable()
     {
@@ -26,7 +35,11 @@ public class ShopController : MonoBehaviour
         CurrencyService.Instance.GetCurrency();
     }
 
+    #endregion
 
+
+
+    #region Public fields
 
     public void BuyItem()
     {
@@ -39,6 +52,11 @@ public class ShopController : MonoBehaviour
         EquipUneqipItem(itemsHandler.GetCurrentItem);
     }
 
+    #endregion
+
+
+
+    #region Private fields
 
     private void EquipUneqipItem(ContentDatabase.Item item)
     {
@@ -75,6 +93,11 @@ public class ShopController : MonoBehaviour
         StartCoroutine(API.GET(String.Format(shopUrlEquippedItems, userId), OnEquippedItemsRequestSuccess, OnRequestFailed));
     }
 
+    #endregion
+
+
+
+    #region Event handlers
 
     private void OnUserItemsRequestSuccess(JSONObject data)
     {
@@ -88,6 +111,7 @@ public class ShopController : MonoBehaviour
 
         RequestUserEquippedItems();
     }
+
 
     private void OnEquippedItemsRequestSuccess(JSONObject data)
     {
@@ -141,4 +165,6 @@ public class ShopController : MonoBehaviour
         ContentDatabase.Instance.FillItems(list);
         RequestUserItems(data);
     }
+
+    #endregion
 }
